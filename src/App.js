@@ -1,10 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Hello from './components/Person';
+import Person from './components/Person';
 function App() {
   return (
-    <Hello/>
+    <Person/>
   );
 }
 
