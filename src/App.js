@@ -4,7 +4,7 @@ import './App.css';
 import Hello from './components/Person';
 function App() {
   return (
-    Hello()
+    <Hello/>
   );
 }
 
