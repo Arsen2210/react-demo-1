@@ -4,7 +4,7 @@ import './App.css';
 import Person from './components/Person';
 function App() {
   return (
-    <Person/>
+    <Person name="John"/>
   );
 }
 
