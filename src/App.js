@@ -1,10 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import Person from './components/Person';
+// import Person from './components/Person';
+import Input from "./components/Input";
+
 function App() {
   return (
-    <Person name="John" surname="Smith"/>
+    <Input/>
   );
 }
 
