@@ -1,30 +1,36 @@
 import React from "react"
 // import { render } from "@testing-library/react";
 import Data from "./Data";
-let inputValue
-export default class Input extends React.Component{
-    constructor(){
-        super();
-        this.state={
-            inputText:""
+
+export default class Input extends React.Component {
+    state = {
+        text: " ",
+        inputText: ""
+
+    }
+    inputChangeHandler = (event) => {
+        const value = event.target.value;
+        this.setState({ inputText: value })
+    }
+    buttonClickhandler = () => {
+        if (this.state.inputText) {
+            this.setState({
+                text: this.state.inputText,
+                inputText: ""
+            })
         }
     }
-    render(){
-        return(
-            <div>
-                <input type="text" 
-                onChange={(event)=>{
-                    this.setState({inputText:event.target.value});
-                }}
-                />
-                <button onClick={()=>{
-                    inputValue=this.state.inputText
-                    this.setState({inputText:""})
-                }}>Button</button>
-                <Data value={inputValue}/>
-            </div>
-
-        );
-            
+        render() {
+            return (
+                <div>
+                    <input type="text"
+                        value={this.state.inputText}
+                        onChange={this.inputChangeHandler} />
+                    <button
+                        onClick={this.buttonClickhandler}
+                    >Button</button>
+                    <Data text={this.state.text} />
+                </div>
+            );
+        }
     }
-}

@@ -40,3 +40,14 @@
 .person{
   color:red;
 }
+
+.Taskdiv{
+  border: solid red 5px;
+  width:10%;
+  margin:10px 10px 10px 10px;
+  padding-left: 5px;
+}
+.tasksdiv{
+  display: flex;
+  flex-wrap: wrap;
+}
