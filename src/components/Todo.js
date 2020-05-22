@@ -1,7 +1,8 @@
 import React from "react"
-import Task from "./Task"
+import Task from "./Task/Task"
 import idGenerator from "../Tools"
 import NewTask from "./NewTask"
+import classes from "./Task/task.css";
 
 export default class Todo extends React.Component {
     state = {
@@ -62,17 +63,15 @@ export default class Todo extends React.Component {
                     <NewTask
                         onTaskAdd={this.addTask} />
                 </div>
-                <div className="tasksdiv">
+                <div className={classes.tasksDiv}>
                     {tasks}
                     <button
-                        className="buttonRemoveAll"
+                        className={classes.buttonRemoveAll}
                         onClick={this.removeBulkHandler}
                         disabled={!this.state.taskIds.size}
                     >Remove All</button>
                 </div>
-
             </>
-
         );
     }
 }

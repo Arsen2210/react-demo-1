@@ -37,30 +37,3 @@
   }
 }
 
-.person{
-  color:red;
-}
-
-.Taskdiv{
-  border: solid red 5px;
-  margin:10px 10px 10px 10px;
-  padding-left: 5px;
-}
-.tasksdiv{
-  display: flex;
-  flex-wrap: wrap;
-}
-.buttonRemoveAll{
-  margin:10px 10px 10px 10px;
-  height: 5vh;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-
-}
-.delbutton{
-  margin-left: 10px;
-  margin-right: 10px;
-}
