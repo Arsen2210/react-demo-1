@@ -1,40 +1,74 @@
 import React from "react"
-// import { render } from "@testing-library/react"
 import Task from "./Task"
 import idGenerator from "../Tools"
+import NewTask from "./NewTask"
 
 export default class Todo extends React.Component {
     state = {
-        inputText:"",
-        tasks: []
+        tasks: [],
+        taskIds: new Set()
     }
-    inputChangeHandler = (event) => {
-        const value = event.target.value;
-        this.setState({ inputText: value })
-    }
-    buttonClickhandler = () => {
-        const inputText = this.state.inputText;
-        if (!inputText) return;
+    addTask = (inputText) => {
         const tasks = [...this.state.tasks];
         tasks.push({
-            id:idGenerator(),
-            text:inputText
+            id: idGenerator(),
+            text: inputText
         });
-        this.setState({ tasks, inputText: "" })
+        this.setState({ tasks });
+    }
+    removeButtonHandler = (taskId) => () => {
+        const newTask = this.state.tasks.filter(({ id }) => taskId !== id);
+        const newtaskIds = new Set(this.state.taskIds);
+        newtaskIds.delete(taskId);
+
+        this.setState({
+            tasks: newTask,
+            taskIds: newtaskIds
+        });
+    }
+    handleCheck = (taskId) => () => {
+        let taskIds = new Set(this.state.taskIds);
+        if (taskIds.has(taskId)) {
+            taskIds.delete(taskId)
+        }
+        else {
+            taskIds.add(taskId);
+        }
+        this.setState({ taskIds })
+    }
+    removeBulkHandler = () => {
+        let { tasks, taskIds } = this.state;
+        taskIds.forEach(id => {
+            tasks = tasks.filter(task => task.id !== id);
+        });
+        this.setState({
+            tasks,
+            taskIds: new Set()
+        })
     }
     render() {
-        const tasks = this.state.tasks.map(task => <Task key={task.id} name={task.text} />);
-
+        const tasks = this.state.tasks.map(({ id, text }) => {
+            return (
+                <Task
+                    key={id}
+                    text={text}
+                    onDelete={this.removeButtonHandler(id)}
+                    onCheck={this.handleCheck(id)}
+                />);
+        });
         return (
             <>
                 <div>
-                    <input type="text"
-                        value={this.state.inputText}
-                        onChange={this.inputChangeHandler} />
-                    <button onClick={this.buttonClickhandler}>Add</button>
+                    <NewTask
+                        onTaskAdd={this.addTask} />
                 </div>
                 <div className="tasksdiv">
                     {tasks}
+                    <button
+                        className="buttonRemoveAll"
+                        onClick={this.removeBulkHandler}
+                        disabled={!this.state.taskIds.size}
+                    >Remove All</button>
                 </div>
 
             </>
