@@ -1,14 +1,16 @@
 import React from "react"
-import Task from "./Task/Task"
-import idGenerator from "../Tools"
+import Task from "./Task"
+import idGenerator from "../../Tools"
 import NewTask from "./NewTask"
-import classes from "./Task/task.css";
+import classes from "./task.css";
 
 export default class Todo extends React.Component {
+    
     state = {
         tasks: [],
         taskIds: new Set()
     }
+
     addTask = (inputText) => {
         const tasks = [...this.state.tasks];
         tasks.push({
@@ -17,6 +19,7 @@ export default class Todo extends React.Component {
         });
         this.setState({ tasks });
     }
+
     removeButtonHandler = (taskId) => () => {
         const newTask = this.state.tasks.filter(({ id }) => taskId !== id);
         const newtaskIds = new Set(this.state.taskIds);
@@ -27,6 +30,7 @@ export default class Todo extends React.Component {
             taskIds: newtaskIds
         });
     }
+
     handleCheck = (taskId) => () => {
         let taskIds = new Set(this.state.taskIds);
         if (taskIds.has(taskId)) {
@@ -37,6 +41,7 @@ export default class Todo extends React.Component {
         }
         this.setState({ taskIds })
     }
+
     removeBulkHandler = () => {
         let { tasks, taskIds } = this.state;
         taskIds.forEach(id => {
@@ -47,6 +52,18 @@ export default class Todo extends React.Component {
             taskIds: new Set()
         })
     }
+
+    handleEdit = (id) => (text) => {
+        const tasks =JSON.parse(JSON.stringify(this.state.tasks));
+        for(let task of tasks){
+            if(task.id === id){
+                task.text=text
+                break
+            }
+        }
+        this.setState({ tasks })
+    }
+
     render() {
         const tasks = this.state.tasks.map(({ id, text }) => {
             return (
@@ -55,6 +72,7 @@ export default class Todo extends React.Component {
                     text={text}
                     onDelete={this.removeButtonHandler(id)}
                     onCheck={this.handleCheck(id)}
+                    onEdit={this.handleEdit(id)}
                 />);
         });
         return (

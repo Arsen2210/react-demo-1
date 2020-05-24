@@ -1,4 +1,6 @@
-import React from "react"
+import React from "react";
+import classes from "./task.css";
+/* import Task from "./Task"; */
 
 export default class NewTask extends React.Component{
     state={
@@ -16,10 +18,10 @@ export default class NewTask extends React.Component{
     render() {
         return (
             <>
-                <input type="text"
+                <input className={classes.Input} type="text"
                     value={this.state.inputText}
                     onChange={this.inputChangeHandler} />
-                <button onClick={this.buttonClickhandler}>Add</button>
+                <button  className={classes.newAdd} onClick={this.buttonClickhandler}>Add</button>
             </>
         );
     }
